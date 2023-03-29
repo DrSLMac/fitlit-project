@@ -1,5 +1,9 @@
 body, html {
-    background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-    background-repeat: no-repeat;
-    height: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: rgb(46, 64, 65);
+  height: 100%;
   }
+
+header {
+  
+}
