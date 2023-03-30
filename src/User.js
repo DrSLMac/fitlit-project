@@ -21,6 +21,7 @@ class User {
         return userArray
     }
 
+    //generate a random avatar to populate with random user generation
  
 }
 
