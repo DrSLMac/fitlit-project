@@ -12,37 +12,136 @@
     <header>
     </header>
     <div id="grid-container">
-
       <div class="grid-item sidebar">
-        <img class="avatar" src="./images/avatars/avatar1.png" alt="avatar" />
-        
-        <img class="moon-icon" role="button" src="./images/sleeping.png" alt="moon icon"/>
+        <img class="side-icon" role="button" src="./images/home-icon.png" alt="home icon"/>
+        <img class="side-icon" role="button" src="./images/hydration-icon.png" alt="hydration icon"/>
+        <img class="side-icon" role="button" src="./images/activity-icon.png" alt="activity icon"/>
+        <img class="side-icon" role="button" src="./images/sleep-icon.png" alt="moon icon"/>
+        <img class="side-icon" role="button" src="./images/calendar-icon.png" alt="calendar icon"/>
+        <img class="side-icon" role="button" src="./images/plus-icon.png" alt="plus icon"/>
       </div>
-
       <div class="grid-item header">
         <!-- <span>2</span> -->
         <h1>Get Lit!</h1>
-        <h2>Welcome Back, Health Nut!</h2>
+        <div>
+          <h2>Welcome Back,</h2>
+          <h2>Elaina!</h2>
+        </div>
+      </div>
+      <div class="grid-item sidebar">
+        <!-- <span>3</span> -->
+        <img class="avatar" src="./images/avatars/avatar1.png" alt="avatar" />
+        <div class="user-info">
+          <h3>Name: </h3>
+          <p class="detail">Elaina Mosciski</p>
+          <h3>Address: </h3>
+          <p class="detail">307 Gerhard Pine</p>
+          <p class="detail">Luettgenton, NC 60477</p>
+          <h3>Email: </h3>
+          <p class="detail">Karolann.Kuvalis@yahoo.com</p>
+        </div>
       </div>
 
-      <div class="grid-item">
-        <span>3</span>
+      <div class="grid-item dashboard">
+        <h2>Activity</h2>
+        <img class="grid-icon" role="button" src="./images/activity-icon.png" alt="activity icon"/>
       </div>
 
-      <div class="grid-item">
-        <span>4</span>
-      </div>
-
-      <div class="grid-item">
-        <span>5</span>
+      <div class="grid-item dashboard">
+        <h2>Hydration</h2>
+        <img class="grid-icon" role="button" src="./images/hydration-icon.png" alt="hydration icon"/>
       </div>
       
-      <div class="grid-item">
-        <span>6</span>
+      <div class="grid-item dashboard">
+        <h2>Sleep</h2>
+        <img class="grid-icon" role="button" src="./images/sleep-icon.png" alt="sleep icon"/>
       </div>
 
-      <div class="grid-item">
-        <span>7</span>
+      <div class="grid-item calendar">
+        <div class="grid-title">
+          <h2>Calendar</h2>
+          <img class="grid-icon" role="button" src="./images/calendar-icon.png" alt="calendar icon"/>
+        </div>
+
+        <div class="calendar-container">
+          <header class="calendar-header">
+            <div class="calendar-navigation">
+              <span id="calendar-prev" class="material-symbols-rounded">⬅️</span>
+              <p class="calendar-current-date"></p>
+                  <span id="calendar-next" class="material-symbols-rounded">➡️</span>
+              </div>
+          </header>
+          <div class="calendar-body">
+              <ul class="calendar-weekdays">
+                  <li>Sun</li>
+                  <li>Mon</li>
+                  <li>Tue</li>
+                  <li>Wed</li>
+                  <li>Thu</li>
+                  <li>Fri</li>
+                  <li>Sat</li>
+              </ul>
+              <ul class="calendar-dates"></ul>
+          </div>
+      </div>
+
+      </div>
+
+      <div class="grid-item friends-list">
+        <!-- <span>8</span> -->
+        <h3 class="list-title">My Friends List</h3>
+        <div>
+          <div class="friend-info">
+            <img class="friend" src="./images/avatars/avatar2.png" alt="friend avatar" />
+            <div class="friend-name">
+              <p>Brycen</p>
+              <p>Rutherford</p>
+            </div>
+          </div>
+          <div class="friend-info">
+            <img class="friend" src="./images/avatars/avatar3.png" alt="friend avatar" />
+            <div class="friend-name">
+              <p>Evie</p>
+              <p>Satterfield</p>
+            </div>
+          </div>
+          <div class="friend-info">
+            <img class="friend" src="./images/avatars/avatar4.png" alt="friend avatar" />
+            <div class="friend-name">
+              <p>Amir</p>
+              <p>Lang</p>
+            </div>
+          </div>
+          <div class="friend-info">
+            <img class="friend" src="./images/avatars/avatar5.png" alt="friend avatar" />
+            <div class="friend-name">
+              <p>Antonina</p>
+              <p>McClure</p>
+            </div>
+          </div>
+          <div class="friend-info">
+            <img class="friend" src="./images/avatars/avatar20.png" alt="friend avatar" />
+            <div class="friend-name">
+              <p>Dianna</p>
+              <p>Streich</p>
+            </div>
+          </div>
+          <div class="friend-info">
+            <img class="friend" src="./images/avatars/avatar16.png" alt="friend avatar" />
+            <div class="friend-name">
+              <p>Kailey</p>
+              <p>Langosh</p>
+            </div>
+          </div>
+          <div class="friend-info">
+            <img class="friend" src="./images/avatars/avatar14.png" alt="friend avatar" />
+            <div class="friend-name">
+              <p>Jacinthe</p>
+              <p>Prosacco</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
