@@ -265,7 +265,7 @@ p {
 .calendar-navigation span {
   width: 4vw;
   cursor: pointer;
-  font-size: 2vw;
+  font-size: 2vh;
 }
 
 .calendar-navigation span:hover {
@@ -319,7 +319,7 @@ p.calendar-current-date {
 }
 
 .calendar-dates li.inactive {
-  color: #aaa;
+  color: #a89e9e;
 }
 
 .calendar-dates li.active {
@@ -332,8 +332,8 @@ p.calendar-current-date {
   z-index: -1;
   top: 50%;
   left: 50%;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.1rem;
+  height: 2.1rem;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
