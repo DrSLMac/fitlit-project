@@ -36,7 +36,7 @@ function startData() {
 }
 
 // 👩🏼‍💻 Query Selectors 👩🏼‍💻
-userName = document.getElementById('username')
+const userName = document.getElementById('username')
 
 // 👂🏼 Event Listeners 👂🏼
 window.addEventListener('load', startData)
@@ -45,16 +45,16 @@ window.addEventListener('load', startData)
 
 function generatePageLoad(userData) {
     currentUser = generateRandomUser(userData.userData)
-    welcomeUser(currentUser)
+    // welcomeUser(currentUser)
 }
 
 function generateRandomUser(userData) {
 
 }
 
-function welcomeUser() {
-    userName.innerText = `${currentUser.returnFirstName()}`
-}
+// function welcomeUser() {
+//     userName.innerText = `${currentUser.returnFirstName()}`
+// }
 
 
 
