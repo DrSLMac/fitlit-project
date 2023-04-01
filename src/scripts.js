@@ -2,29 +2,59 @@
 import './css/styles.css';
 // import userData from './data/users';
 import UserRepository from './UserRepository';
-import { fetchData } from './apiCalls';
-
-
-// An example of how you tell webpack to use a JS file
-
-// console.log("User Data:", userData);
-
-// const newRepo = new UserRepository();
+import { fetchUserData, fetchSleepData, fetchHydrationData, fetchActivityData } from './apiCalls';
 
 // 🌎 Global Variables 🗺️
+let userData;
+let sleepData;
+let activityData;
+let hydrationData;
 let allUserData;
+let currentUser;
 
 // Fetch Promise:
 function startData() {
-    Promise.all([fetchData('users', 'userData')])
-            .then((dataSet) => {
-                // allUserData = new UserRepository(dataSet)
-                console.log("dataSet: ", dataSet)
-            })
+    Promise.all([
+        fetchUserData(),
+        fetchSleepData(),
+        fetchHydrationData(),
+        fetchActivityData()
+    ])
+    .then((dataSet) => {
+        console.log("dataSet: ", dataSet[0].users)
+        userData = dataSet[0].users
+        sleepData = dataSet[1].sleepData
+        hydrationData = dataSet[2].hydrationData
+        activityData = dataSet[3].activityData
+        console.log("userData", userData[0])
+        console.log("sleepData", sleepData[0])
+        console.log("hydrationData", hydrationData[0])
+        console.log("activityData", activityData[0])
+        allUserData = new UserRepository(userData)
+        generatePageLoad(allUserData)
+    })
 }
+
+// 👩🏼‍💻 Query Selectors 👩🏼‍💻
+userName = document.getElementById('username')
 
 // 👂🏼 Event Listeners 👂🏼
 window.addEventListener('load', startData)
+
+
+
+function generatePageLoad(userData) {
+    currentUser = generateRandomUser(userData.userData)
+    welcomeUser(currentUser)
+}
+
+function generateRandomUser(userData) {
+
+}
+
+function welcomeUser() {
+    userName.innerText = `${currentUser.returnFirstName()}`
+}
 
 
 
