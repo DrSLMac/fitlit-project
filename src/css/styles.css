@@ -243,7 +243,7 @@ p {
   background: #997c80;
   margin: 0rem;
   width: 90%;
-  max-height: 27vh;
+  max-height: 26.5vh;
   border-radius: 10px;
   place-self: center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -252,7 +252,7 @@ p {
 .calendar-container header {
   display: flex;
   align-items: center;
-  padding: .5rem 4rem 0rem 4rem;
+  padding: .5vh 4vw 0vh 4vw;
   justify-content: center;
   font-size: larger;
 }
@@ -263,9 +263,9 @@ p {
 }
 
 .calendar-navigation span {
-  width: 4rem;
+  width: 4vw;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 2vw;
 }
 
 .calendar-navigation span:hover {
@@ -273,9 +273,9 @@ p {
   border-radius: 50%;
 }
 
-.calendar-current-date header {
-  font-weight: 500;
-  /* font-size: 1.45rem; */
+p.calendar-current-date {
+  /* font-weight: 500; */
+  font-size: 1.2vw;
 }
 
 .calendar-body {
@@ -296,7 +296,7 @@ p {
 }
 
 .calendar-body .calendar-dates {
-  margin-bottom: 2rem;
+  margin-bottom: 1.6vh;
 }
 
 .calendar-body li {
@@ -312,7 +312,7 @@ p {
 
 .calendar-body .calendar-dates li {
   /* margin-top: 30px; */
-  margin-top: 1rem;
+  margin-top: .9vh;
   position: relative;
   z-index: 1;
   cursor: pointer;
