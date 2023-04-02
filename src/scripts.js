@@ -2,6 +2,8 @@
 import './css/styles.css';
 // import userData from './data/users';
 import UserRepository from './UserRepository';
+import User from './User';
+import Hydration from './Hydration';
 import { fetchUserData, fetchSleepData, fetchHydrationData, fetchActivityData } from './apiCalls';
 
 // 🌎 Global Variables 🗺️
@@ -11,6 +13,10 @@ let activityData;
 let hydrationData;
 let allUserData;
 let currentUser;
+let userAllData;
+let userSleepData;
+let userActivityData;
+let userHydrationData;
 
 // Fetch Promise:
 function startData() {
@@ -21,15 +27,10 @@ function startData() {
         fetchActivityData()
     ])
     .then((dataSet) => {
-        console.log("dataSet: ", dataSet[0].users)
         userData = dataSet[0].users
         sleepData = dataSet[1].sleepData
         hydrationData = dataSet[2].hydrationData
         activityData = dataSet[3].activityData
-        console.log("userData", userData[0])
-        console.log("sleepData", sleepData[0])
-        console.log("hydrationData", hydrationData[0])
-        console.log("activityData", activityData[0])
         allUserData = new UserRepository(userData)
         generatePageLoad(allUserData)
     })
@@ -37,6 +38,16 @@ function startData() {
 
 // 👩🏼‍💻 Query Selectors 👩🏼‍💻
 const userName = document.getElementById('username')
+const welcomeMessage = document.getElementById('welcome-message')
+const fullName = document.getElementById('full-name')
+const streetAddress = document.getElementById('street-address');
+const cityState = document.getElementById('city-state');
+const emailAddress = document.getElementById('email-address')
+const strideLength = document.getElementById('stride-length')
+const userActivityDetails = document.querySelector(".activity-data")
+const dailyAvgWater = document.getElementById('daily-avg-water')
+const todayIntake = document.getElementById('today-intake')
+const hydrationGrid = document.querySelector('.hydration-grid')
 
 // 👂🏼 Event Listeners 👂🏼
 window.addEventListener('load', startData)
@@ -44,30 +55,115 @@ window.addEventListener('load', startData)
 
 
 function generatePageLoad(userData) {
-    currentUser = generateRandomUser(userData.userData)
-    // welcomeUser(currentUser)
+    console.log("userData ln 53: ", userData)
+    currentUser = generateRandomUser(userData.allUserData)
+    console.log("currentUser: ", currentUser)
+    welcomeUser(currentUser)
+    userSleepData = currentUser.findUserData(sleepData)
+    // console.log("userSleepData ln 61: ", userSleepData)
+
+    userHydrationData = new Hydration(currentUser.id, hydrationData)
+    userAllData = [currentUser, currentUser.findUserData(hydrationData), currentUser.findUserData(activityData), currentUser.findUserData(sleepData)]
+    console.log("userAllData: ", userAllData)
+    renderUserActivityData()
+    renderHydrationData()
+    renderWaterCups()
 }
 
 function generateRandomUser(userData) {
-
+    let currentUserObj = userData[Math.floor(Math.random() * userData.length)]
+    generateRandomAvatar()
+    return currentUser = new User(currentUserObj)
 }
 
-// function welcomeUser() {
-//     userName.innerText = `${currentUser.returnFirstName()}`
-// }
+function generateRandomAvatar() {
+    const min = 1;
+    const max = 27
+    let randomAvatar = `./images/avatars/avatar${Math.floor(Math.random() * (max - min) + min)}.png`
+    document.getElementById('user-avatar').src=[randomAvatar]
+}
 
+function todayDate() {
+    const date = new Date().toJSON().slice(0,10).split('-')
+    const today = `${date[1]}/${date[2]}/${date[0]}`
+    return today
+}
+
+function welcomeUser() {
+    welcomeMessage.innerHTML = '';
+    welcomeMessage.innerHTML += `
+    <h2>Welcome Back, ${currentUser.returnFirstName()}!</h2>
+    <h3>Today is ${todayDate()}</h3>
+    `
+    const streetAddi = currentUser.address.split(',')
+    const lineTwo = streetAddi[1].split(' ')
+    fullName.innerText = `${currentUser.name}`;
+    streetAddress.innerText = `${streetAddi[0]}`;
+    cityState.innerText = `${lineTwo[1]}, ${lineTwo[2]} ${lineTwo[3]}`;
+    emailAddress.innerText = `${currentUser.email}`;
+    strideLength.innerText = `${currentUser.strideLength}`;
+}
+
+function renderUserActivityData() {
+    userActivityDetails.innerHTML = ''
+    userActivityData = currentUser.findUserData(activityData);
+    let diff = currentUser.userAvgSteps(userActivityData) - allUserData.allUserAvgData();
+    let direction;
+    if (diff === 0) {
+        direction = `Your daily step goal is the same as the average user's step goal(${allUserData.allUserAvgData()})`
+    } else if (diff > 0) {
+        direction = `Your daily step goal is ${diff} above the average user's step goal (${allUserData.allUserAvgData()})`
+    } else {
+        direction = `Your daily step goal is ${diff} below the average user's step goal (${allUserData.allUserAvgData()})`
+    }
+    userActivityDetails.innerHTML += `
+        <h4>Daily Step Goal: </h4>
+        <p>${currentUser.dailyStepGoal}</p>
+        <h4>Average Daily Steps: </h4>
+        <p>${currentUser.userAvgSteps(userActivityData)}</p>
+        <p>${direction}</p>
+    `
+}
+
+function renderHydrationData() {
+    dailyAvgWater.innerText = `${userHydrationData.avgH2OConsumedPerDay()} oz`
+    todayIntake.innerText = `${userHydrationData.findCurrentWater()} oz`
+}
+
+function renderWaterCups() {
+    const numWaterCups = Math.floor((userHydrationData.findCurrentWater()/8))
+    // console.log("numWaterCups: ", numWaterCups)
+    hydrationGrid.innerHTML = ''
+    let counter = 0;
+    for (let i = 0; i < 12; i ++) {
+        if (counter < numWaterCups) {
+            counter += 1;
+            hydrationGrid.innerHTML += `
+            <div class="water-grid">
+            <img class="water-icon" role="button" src="./images/full-cup.png" alt="full cup icon"/>
+            </div>
+            `
+        } else {
+            hydrationGrid.innerHTML += `
+            <div class="water-grid">
+                <img class="water-icon" role="button" src="./images/empty-cup.png" alt="empty cup icon"/>
+            </div>
+            `
+        }
+    }
+}
 
 
 
 
 
 // 📆 Calendar 📆
-let date=new Date(); // creates a new date object with the current date and time
-let year=date.getFullYear(); // gets the current year
-let month=date.getMonth(); // gets the current month (index based, 0-11)
-const day=document.querySelector(".calendar-dates"); // selects the element with class "calendar-dates"
-const currdate=document.querySelector(".calendar-current-date"); // selects the element with class "calendar-current-date"
-const prenexIcons=document.querySelectorAll(".calendar-navigation span"); // selects all elements with class "calendar-navigation span"
+let date=new Date(); 
+let year=date.getFullYear();
+let month=date.getMonth();
+const day=document.querySelector(".calendar-dates");
+const currdate=document.querySelector(".calendar-current-date");
+const arrows=document.querySelectorAll(".calendar-navigation span");
 
 const months=[
 "January",
@@ -81,63 +177,48 @@ const months=[
 "September",
 "October",
 "November",
-"December"]; // array of month names
+"December"];
 
-// function to generate the calendar
 const manipulate=()=> {
-    // get the first day of the month
-    let dayone=new Date(year, month, 1).getDay();
-    // get the last date of the month
-    let lastdate=new Date(year, month + 1, 0).getDate();
-    // get the day of the last date of the month
-    let dayend=new Date(year, month, lastdate).getDay();
-    // get the last date of the previous month
-    let monthlastdate=new Date(year, month, 0).getDate();
-    let lit=""; // variable to store the generated calendar HTML
-    // loop to add the last dates of the previous month
-    for (let i=dayone; i > 0; i--) {
-lit+=`<li class="inactive">${monthlastdate - i + 1}</li>`;
-    }
-    // loop to add the dates of the current month
-    for (let i=1; i <=lastdate; i++) {
-// check if the current date is today
-let isToday=i===date.getDate() && month===new Date().getMonth() && year===new Date().getFullYear() ? "active": "";
-lit+=`<li class="${isToday}">${i}</li>`;
-    }
-    // loop to add the first dates of the next month
-    for (let i=dayend; i < 6; i++) {
-lit+=`<li class="inactive">${i - dayend + 1}</li>`
-    }
-    // update the text of the current date element with the formatted current month and year
-    currdate.innerText=`${months[month]} ${year}`;
+    let dayOne = new Date(year, month, 1).getDay();
+  
+    let lastDate = new Date(year, month + 1, 0).getDate();
+ 
+    let lastDayOfMonth = new Date(year, month, lastDate).getDay();
 
-    // update the HTML of the dates element with the generated calendar
-    day.innerHTML=lit;
+    let prevMonthEnd = new Date(year, month, 0).getDate();
+
+    let cal = ""; 
+
+    // loop to add the last dates of the previous month
+    for (let i = dayOne; i > 0; i--) {
+        cal += `<li class="inactive">${prevMonthEnd - i + 1}</li>`;
+    }
+
+    // loop to add the dates of the current month
+    for (let i = 1; i <= lastDate; i++) {
+        // check if the current date is today
+        let isToday = i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear() ? "active" : "";
+        cal += `<li class="${isToday}">${i}</li>`;
+    }
+    for (let i = lastDayOfMonth; i < 6; i++) {
+        cal += `<li class="inactive">${i - lastDayOfMonth + 1}</li>`
+    }
+    currdate.innerText=`${months[month]} ${year}`;
+    day.innerHTML=cal;
 }
 manipulate();
-// Attach a click event listener to each icon
-prenexIcons.forEach(icon=> {
-// When an icon is clicked
-icon.addEventListener("click", ()=> {
-        // Check if the icon is "calendar-prev" or "calendar-next"
-        month=icon.id==="calendar-prev" ? month - 1 : month + 1;
 
-        // Check if the month is out of range
+arrows.forEach(icon=> {
+    icon.addEventListener("click", ()=> {
+        month = icon.id === "calendar-prev" ? month - 1 : month + 1;
         if (month < 0 || month > 11) {
-            // Set the date to the first day of the month with the new year
-            date=new Date(year, month, new Date().getDate());
-            // Set the year to the new year
-            year=date.getFullYear();
-            // Set the month to the new month
-            month=date.getMonth();
+            date = new Date(year, month, new Date().getDate());
+            year = date.getFullYear();
+            month = date.getMonth();
+        } else {
+            date = new Date();
         }
-
-        else {
-            // Set the date to the current date
-            date=new Date();
-        }
-
-        // Call the manipulate function to update the calendar display
         manipulate();
     });
-    });
+});

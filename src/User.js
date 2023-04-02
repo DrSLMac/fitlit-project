@@ -21,7 +21,10 @@ class User {
         return userArray
     }
 
-    //generate a random avatar to populate with random user generation
+    userAvgSteps(array) {
+        const userTotal = array.reduce((total, item) => total += item.numSteps, 0)
+        return (userTotal/array.length).toFixed()
+    }
  
 }
 
