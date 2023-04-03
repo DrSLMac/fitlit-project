@@ -67,6 +67,24 @@ h2 {
 .refresh-icon {
   height: 3vh;
   width: auto;
+  cursor: pointer;
+  
+}
+
+.refresh-icon:hover {
+  background-color:aliceblue;
+  border-radius: 50%;
+  filter: drop-shadow(
+    1px 2px 4px hsl(220deg 60% 50%)
+  );
+  transition: all .2s;
+}
+
+.refresh-icon:active {
+  transform: translateY(1px);
+  filter: drop-shadow(
+    .5px 1px 2px hsl(220, 39%, 22%)
+  );
 }
 
 .grid-item:nth-of-type(1) {
@@ -234,7 +252,13 @@ p {
   margin-top: 1vh;
 }
 
-.water-grid {
+/* .water-grid {
+  display: flex;
+  place-self: center;
+  margin-bottom: 1rem;
+} */
+
+.hydration-cell {
   display: flex;
   place-self: center;
   margin-bottom: 1rem;
@@ -245,6 +269,15 @@ p {
   height: 3rem;
   cursor: pointer;
   filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(139, 159, 162, 0.803));
+  transition: all .2s;
+}
+
+.water-icon:hover {
+  transform: translateY(-3px);
+}
+
+.water-icon:active {
+  transform: translateY(3px);
 }
 
 .hydration-text {
