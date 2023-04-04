@@ -264,7 +264,8 @@ p {
   margin-bottom: 1rem;
 }
 
-.water-icon {
+.full-cup,
+.empty-cup {
   width: auto;
   height: 3rem;
   cursor: pointer;

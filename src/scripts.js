@@ -51,6 +51,8 @@ const todayIntake = document.getElementById('today-intake')
 const hydrationGrid = document.querySelector('.hydration-grid')
 // const waterIcon = document.querySelector('.water-icon')
 const hydrationCells = document.querySelectorAll('.hydration-cell')
+const fullCup = document.getElementById('full-cup')
+const emptyCup = document.getElementById('empty-cup')
 
 // 👂🏼 Event Listeners 👂🏼
 window.addEventListener('load', startData)
@@ -144,24 +146,30 @@ function renderWaterCups() {
 
         if (counter < numWaterCups) {
             counter += 1;
-            cell.innerHTML += `<img class="water-icon" role="button" src="./images/full-cup.png" alt="full cup icon"/>`
+            cell.innerHTML += `<img class="full-cup" role="button" src="./images/full-cup.png" alt="full cup icon"/>`
         } else {
-            cell.innerHTML += `<img class="water-icon" role="button" src="./images/empty-cup.png" alt="empty cup icon"/>`
+            cell.innerHTML += `<img class="empty-cup" role="button" src="./images/empty-cup.png" alt="empty cup icon"/>`
         }
     })
 }
 
 function addWater(event) {
-    let waterCup = event.target.closest('.hydration-cell')
-
-    let id = waterCup.id;
-    // console.log("waterCup: ". event.target.closest('.hydration-cell'))
-    console.log('id: ', id)
-    if (event.target.classList.contains('water-icon')) {
-        console.log("YESS")
+    console.log("What is it?", event.target.src)
+    let currentHydration = userHydrationData.findCurrentWater()
+    if (event.target.classList.contains('empty-cup')) {
+        event.target.src = './images/full-cup.png'
+        event.target.classList = 'full-cup'
+        event.target.alt = 'full cup icon'
+        currentHydration += 8
+        console.log("get hydration", currentHydration)
+        todayIntake.innerText = `${currentHydration} oz`
+    } else if (event.target.classList.contains('full-cup')) {
+        event.target.src = './images/empty-cup.png'
+        event.target.classList = 'empty-cup'
+        event.target.alt = 'empty cup icon'
+        currentHydration -= 8
+        todayIntake.innerText = `${currentHydration} oz`
     }
-    // let attr = document.querySelector("water-icon").attributes[1].name;
-    // console.log("attr: ", attr)
 }
 
 
